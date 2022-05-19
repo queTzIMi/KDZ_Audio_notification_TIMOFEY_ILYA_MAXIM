@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KDZ_Audio_notification"
         mc:Ignorable="d"
-        Title="NOtificatiON SYS" Height="450" Width="800">
+        Title="NOtificatiON SYS" Height="450" Width="800"
+        MinHeight="450"
+        MinWidth="600">
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -15,7 +17,7 @@
             <!--1* - Базовый размер. Можно просто написать без Height и все будет также и * - это относительный размер-->
             <RowDefinition Height="102"/>
         </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Center" Orientation ="Horizontal">
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation ="Horizontal"> <!--Grid.Row =" " Присваивает StackPanel к нужной строчке-->
             
             <Button BorderThickness="0" Background="Transparent">
                 <Image Margin="5" Height = "35" Source="/Images/prev.png" />   <!--Margin - отступ, Height - высота BorderThickness - ширина рамки кнопок-->
@@ -37,6 +39,11 @@
                 <Image Margin="5" Height = "35" Source="/Images/next.png" />  <!--Margin - отступ, Height - высота-->
             </Button>
             
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
+            <CheckBox Margin="0,3,7,0" Content="Проигрывать оповещения"></CheckBox>
+            <CheckBox Margin="0,3,7,0" Content="Проигрывать в случайном порядке"></CheckBox>
         </StackPanel>
     </Grid>
 </Window>
