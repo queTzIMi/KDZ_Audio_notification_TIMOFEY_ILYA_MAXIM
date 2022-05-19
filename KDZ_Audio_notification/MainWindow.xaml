@@ -5,8 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KDZ_Audio_notification"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="NOtificatiON SYS" Height="450" Width="800">
+    <Grid ShowGridLines="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="27"/>
+            <RowDefinition Height="1*"/>
+            <!--1* - Базовый размер. Можно просто написать без Height и все будет также и * - это относительный размер-->
+            <RowDefinition Height="102"/>
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center" Orientation ="Horizontal">
+            
+            <Button BorderThickness="0" Background="Transparent">
+                <Image Margin="5" Height = "35" Source="/Images/prev.png" />   <!--Margin - отступ, Height - высота BorderThickness - ширина рамки кнопок-->
+            </Button>
+
+            <Button BorderThickness="0" Background="Transparent">
+                <Image Margin="5" Height = "35" Source="/Images/stop.png" />
+            </Button>
+
+            <Button BorderThickness="0" Background="Transparent">
+                <Image Margin="5" Height = "55" Source="/Images/play.png" />
+            </Button>
+
+            <Button BorderThickness="0" Background="Transparent">
+                <Image Margin="5" Height = "35" Source="/Images/pause.png" />
+            </Button>
+
+            <Button BorderThickness="0" Background="Transparent">
+                <Image Margin="5" Height = "35" Source="/Images/next.png" />  <!--Margin - отступ, Height - высота-->
+            </Button>
+            
+        </StackPanel>
     </Grid>
 </Window>
