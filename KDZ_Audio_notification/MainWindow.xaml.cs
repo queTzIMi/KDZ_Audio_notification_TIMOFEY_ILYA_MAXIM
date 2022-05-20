@@ -24,5 +24,45 @@ namespace KDZ_Audio_notification
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_prev_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Play_in_random_order_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Play_in_random_order_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_stop_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_play_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_pause_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_next_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

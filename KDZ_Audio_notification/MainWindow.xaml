@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="NOtificatiON SYS" Height="450" Width="800"
         MinHeight="450"
-        MinWidth="600">
+        MinWidth="600"
+        Loaded="Window_Loaded">
     <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -17,25 +18,30 @@
             <!--1* - Базовый размер. Можно просто написать без Height и все будет также и * - это относительный размер-->
             <RowDefinition Height="102"/>
         </Grid.RowDefinitions>
+        
+        <MediaElement Name ="Music_controller" LoadedBehavior="Manual"/>
+        <!--Медиаэлемент в нашей программе не существует на интерфейсе, вся его суть - издавать звук-->
+        <!--LoadedBehavior="Manual" - опция, предоставляющая контроллировать Медиафайл через код-->
+        
         <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation ="Horizontal"> <!--Grid.Row =" " Присваивает StackPanel к нужной строчке-->
 
-            <Button  Name ="Button_prev" BorderThickness="0" Background="Transparent">
+            <Button  Click="Button_prev_Click"  Name ="Button_prev" BorderThickness="0" Background="Transparent">
                 <Image Margin="5" Height = "35" Source="/Images/prev.png" />   <!--Margin - отступ, Height - высота BorderThickness - ширина рамки кнопок-->
             </Button>
 
-            <Button  Name ="Button_stop" BorderThickness="0" Background="Transparent">
+            <Button Click="Button_stop_Click"  Name ="Button_stop" BorderThickness="0" Background="Transparent">
                 <Image Margin="5" Height = "35" Source="/Images/stop.png" />
             </Button>
 
-            <Button  Name ="Button_play" BorderThickness="0" Background="Transparent">
+            <Button Click="Button_play_Click"  Name ="Button_play" BorderThickness="0" Background="Transparent">
                 <Image Margin="5" Height = "55" Source="/Images/play.png" />
             </Button>
 
-            <Button  Name ="Button_pause" BorderThickness="0" Background="Transparent">
+            <Button Click="Button_pause_Click"  Name ="Button_pause" BorderThickness="0" Background="Transparent">
                 <Image Margin="5" Height = "35" Source="/Images/pause.png" />
             </Button>
 
-            <Button Name ="Button_next" BorderThickness="0" Background="Transparent">
+            <Button Click="Button_next_Click"  Name ="Button_next" BorderThickness="0" Background="Transparent">
                 <Image Margin="5" Height = "35" Source="/Images/next.png" />  <!--Margin - отступ, Height - высота-->
             </Button>
             
@@ -43,11 +49,9 @@
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
             <CheckBox Name="Play_notifications" Margin="0,3,7,0" Content="Проигрывать оповещения"></CheckBox>
-            <CheckBox Name ="Play_in_random_order"  Margin="0,3,7,0" Content="Проигрывать в случайном порядке"></CheckBox>
+            <CheckBox Checked="Play_in_random_order_Checked" Unchecked="Play_in_random_order_Unchecked" Name ="Play_in_random_order"  Margin="0,3,7,0" Content="Проигрывать в случайном порядке"></CheckBox>
         </StackPanel>
 
-        <MediaElement Name ="Music_controller" LoadedBehavior="Manual"/> <!--Медиаэлемент в нашей программе не существует на интерфейсе, вся его суть - издавать звук-->
-        <!--LoadedBehavior="Manual" - опция, предоставляющая контроллировать Медиафайл через код-->
         <ProgressBar Grid.Row="2" Name="Progress_bar"/>
         <Label HorizontalAlignment="Center" Grid.Row="2" Name ="Music_timer" Content="00:00/00:00">
             
