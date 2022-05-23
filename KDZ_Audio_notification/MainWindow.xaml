@@ -14,19 +14,22 @@
             <RowDefinition Height="80"/>
             <RowDefinition Height="25"/>
             <RowDefinition Height="27"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="1*"/>
             <!--1* - Базовый размер. Можно просто написать без Height и все будет также и * - это относительный размер-->
             <RowDefinition Height="102"/>
         </Grid.RowDefinitions>
-        
+
         <MediaElement Name ="Music_controller" LoadedBehavior="Manual"/>
         <!--Медиаэлемент в нашей программе не существует на интерфейсе, вся его суть - издавать звук-->
         <!--LoadedBehavior="Manual" - опция, предоставляющая контроллировать Медиафайл через код-->
-        
-        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation ="Horizontal"> <!--Grid.Row =" " Присваивает StackPanel к нужной строчке-->
+
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation ="Horizontal">
+            <!--Grid.Row =" " Присваивает StackPanel к нужной строчке-->
 
             <Button  Click="Button_prev_Click"  Name ="Button_prev" BorderThickness="0" Background="Transparent">
-                <Image Margin="5" Height = "35" Source="/Images/prev.png" />   <!--Margin - отступ, Height - высота BorderThickness - ширина рамки кнопок-->
+                <Image Margin="5" Height = "35" Source="/Images/prev.png" />
+                <!--Margin - отступ, Height - высота BorderThickness - ширина рамки кнопок-->
             </Button>
 
             <Button Click="Button_stop_Click"  Name ="Button_stop" BorderThickness="0" Background="Transparent">
@@ -42,9 +45,10 @@
             </Button>
 
             <Button Click="Button_next_Click"  Name ="Button_next" BorderThickness="0" Background="Transparent">
-                <Image Margin="5" Height = "35" Source="/Images/next.png" />  <!--Margin - отступ, Height - высота-->
+                <Image Margin="5" Height = "35" Source="/Images/next.png" />
+                <!--Margin - отступ, Height - высота-->
             </Button>
-            
+
         </StackPanel>
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
@@ -54,9 +58,47 @@
 
         <ProgressBar Grid.Row="2" Name="Progress_bar"/>
         <Label HorizontalAlignment="Center" Grid.Row="2" Name ="Music_timer" Content="00:00/00:00">
-            
-        </Label>
 
+        </Label>
+        <Grid ShowGridLines="True" Grid.Row="3">
+            <Label Content = "Список музыки"/>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                
+                   <!--Два значка громкости : музыка включена и выкл. Поставил их на одно место свойством Visibility = "Collapsed" и Visibility = "Visible". При нажатии на значок один будет скрываться, а второй появляться--> 
+                <!--При свойстве Hidden значки не будут резервировать одно место, следовательно они не будут наезжать друг на друга, а Collapsed позволяется на одном месте расположить два значка одновременно (один виден, другой - не виден)-->
+                <Image Name ="Music_on" MouseLeftButtonDown="Music_on_MouseLeftButtonDown"  Width="25" Visibility="Collapsed" Source="/Images/music_unmute.png"/>
+                <Image Name ="Music_off" MouseLeftButtonDown="Music_off_MouseLeftButtonDown" Width="23" Source="/Images/music_mute.jpg"/>
+               
+                <!--Контроллер громкости музыки (ползунок) Minimum - минимальное значение громкости, Maximum максимальное значение громкости, SmallChange - шаг изменения громкости-->
+                 <!--IsMoveToPointEnabled = "True" перемещает громкость в любое значение одним кликом по прогрессбару-->
+                <Slider IsMoveToPointEnabled="True" Margin= "5,5,0,0"  Name ="Volume_controller_music" Minimum="0" Maximum="100" SmallChange="1" Width="200" ValueChanged="Volume_controller_music_ValueChanged"/>
+
+                <Label Name="GNWOERK"  Content="100"/>
+                
+            </StackPanel>
+            <Label Margin="5,0,0,0" Grid.Column="1" Content = "Список уведомлений"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+
+                <!--Два значка громкости : музыка включена и выкл. Поставил их на одно место свойством Visibility = "Collapsed" и Visibility = "Visible". При нажатии на значок один будет скрываться, а второй появляться-->
+                <!--При свойстве Hidden значки не будут резервировать одно место, следовательно они не будут наезжать друг на друга, а Collapsed позволяется на одном месте расположить два значка одновременно (один виден, другой - не виден)-->
+                <Image Name ="Notifications_on" MouseLeftButtonDown="Notifications_on_MouseLeftButtonDown"  Width="25" Visibility="Collapsed" Source="/Images/music_unmute.png"/>
+                <Image Name ="Notifications_off" MouseLeftButtonDown="Notifications_off_MouseLeftButtonDown" Width="23" Source="/Images/music_mute.jpg"/>
+
+                <!--Контроллер громкости музыки (ползунок) Minimum - минимальное значение громкости, Maximum максимальное значение громкости, SmallChange - шаг изменения громкости-->
+                <Slider IsMoveToPointEnabled="True" Margin= "5,5,0,0"  Name ="Volume_controller_notifications" Minimum="0" Maximum="100" SmallChange="1" Width="200" ValueChanged="Volume_controller_notifications_ValueChanged"/>
+
+                <Label Name="KREOWNG"  Content="100"/>
+                  
+            </StackPanel>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+               
+        </Grid>
+        <!--<ListBox Name ="List_of_music"/>-->
     </Grid>
     
     

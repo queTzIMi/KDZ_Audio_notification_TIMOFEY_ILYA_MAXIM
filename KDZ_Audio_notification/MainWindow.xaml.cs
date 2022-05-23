@@ -64,5 +64,39 @@ namespace KDZ_Audio_notification
         {
 
         }
+
+        private void Volume_controller_music_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+        }
+
+        private void Music_on_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Music_on.Visibility = Visibility.Collapsed;
+            Music_off.Visibility = Visibility.Visible;
+        }
+
+        private void Music_off_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Music_off.Visibility = Visibility.Collapsed;
+            Music_on.Visibility=Visibility.Visible;
+        }
+
+        private void Notifications_on_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Notifications_on.Visibility = Visibility.Collapsed;
+            Notifications_off.Visibility = Visibility.Visible;
+        }
+
+        private void Notifications_off_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        { Notifications_off.Visibility = Visibility.Collapsed;
+           
+            Notifications_on.Visibility = Visibility.Visible;
+        }
+
+        private void Volume_controller_notifications_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+        }
     }
 }
