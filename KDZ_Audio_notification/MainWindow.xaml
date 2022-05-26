@@ -9,7 +9,7 @@
         MinHeight="450"
         MinWidth="600"
         Loaded="Window_Loaded">
-    <Grid ShowGridLines="True">
+    <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="25"/>
@@ -101,25 +101,56 @@
             
                
         </Grid>
-        <!--<ListBox Name ="List_of_music"/>-->
-        <ListBox Name="List_of_music" Grid.Row="4" Visibility="Collapsed" Margin="0,0,0,13" HorizontalAlignment="Left" VerticalAlignment="Top" Width="194" Height="200">
-            <ListBoxItem Content="Oxxymiron"></ListBoxItem>
-            <ListBoxItem Content="Marshmellow"></ListBoxItem>
-            <ListBoxItem Content="Ez"></ListBoxItem>
-            <ListBoxItem Content="Skrillex"></ListBoxItem>
-            <ListBoxItem Content="Spotlight"></ListBoxItem>
-            <ListBoxItem Content="ShadowFight"></ListBoxItem>
-        </ListBox>
-        <Grid Grid.Row="4">
-            <Grid.ColumnDefinitions>
+        
+        <Grid Grid.Row="4">                  <!--Список музыки - правый столбец, список оповещени - левый столбец-->
+            <Grid.ColumnDefinitions> 
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-
-            <ListBox SelectionChanged="Musical_List__SelectionChanged" Grid.Row="4" Grid.Column="0" Name ="Musical_List_"/>
+            
+            <!--SelectionChanged="Musical_List__SelectionChanged" - при выборе нужного трека из списка он начинает проигрываться-->
+            <ListBox SelectionChanged="Musical_List__SelectionChanged" Grid.Row="4" Grid.Column="0" Name ="Musical_List_"/> 
             <ListBox SelectionChanged="Notifications_List_SelectionChanged" Grid.Row="4" Grid.Column="1" Name ="Notifications_List"/>
         </Grid>
-   
+
+        <Grid Grid.Row="5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>  <!--ColumnDefinition Width="150" - фиксированная ширина столбца в пикселях-->
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Label HorizontalAlignment="Right" Content="Обед:"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <TextBox TextAlignment="Center" Margin="1" Name="Lunch_starting" TextChanged="TextBox_TextChanged" Width="40" MaxLines="1" MaxLength="5" Text="12:00"/>
+                <Label Content="-"/>
+                <TextBox TextAlignment="Center" Margin="1" Name="Lunch_finishing" TextChanged="Lunch_finishing_TextChanged"  Width="40" MaxLines="1" MaxLength="5" Text="12:10"/>
+            </StackPanel>
+            <Label HorizontalAlignment="Right" Grid.Row="1" Content="Ужин:"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                <TextBox TextAlignment="Center" Margin="1" Name ="Dinner_Starting"  TextChanged="Dinner_Starting_TextChanged" Width="40" MaxLines="1"  MaxLength="5" Text="19:00"/>
+                <Label Content="-"/>
+                <TextBox TextAlignment="Center" Margin="1" Name="Dinner_finishing" TextChanged="Dinner_finishing_TextChanged" Width="40" MaxLines="1" MaxLength="5" Text="20:15"/>
+            </StackPanel>
+            <Label HorizontalAlignment="Right" Grid.Row="2" Content="Папка для музыки"/>
+            <TextBox Grid.Column="1" Grid.Row ="2"  Margin="1" MaxLines="1" TextChanged="Way_to_folder_TextChanged" Name="Way_to_music_folder"/>
+            <Button HorizontalAlignment="Right" Margin="1" Grid.Row="2" Grid.Column="1" Click="Button_Click_2">
+                <Image Source="/Images/folder.png" />
+            </Button>
+            <Label HorizontalAlignment="Right" Grid.Row="3" Content="Папка для оповещений"/>
+            <TextBox Grid.Column="1" Grid.Row="4" Margin="1" MaxLines="1" TextChanged="TextBox_TextChanged_1" Name ="Way_to_notifications_folder"/>
+            <Button Margin="1" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="4" Click="Button_Click_3">
+                   <Image Source="/Images/folder.png" />
+ 
+                </Button>
+              
+        </Grid>
     </Grid>
     
     

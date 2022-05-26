@@ -97,16 +97,13 @@ namespace KDZ_Audio_notification
         private void Music_list_dropped_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Music_list_dropped.Visibility = Visibility.Collapsed;
-            Music_list_up.Visibility = Visibility.Visible;
-            List_of_music.Visibility = Visibility.Visible;  
+            Music_list_up.Visibility = Visibility.Visible;  
         }
 
         private void Music_list_up_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Music_list_up.Visibility=Visibility.Collapsed;
             Music_list_dropped.Visibility=Visibility.Visible;
-            List_of_music.Visibility = Visibility.Collapsed;
-
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -132,6 +129,61 @@ namespace KDZ_Audio_notification
         }
 
         private void Notifications_List_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Lunch_finishing_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Dinner_Starting_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Dinner_finishing_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Way_to_folder_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
         {
 
         }
