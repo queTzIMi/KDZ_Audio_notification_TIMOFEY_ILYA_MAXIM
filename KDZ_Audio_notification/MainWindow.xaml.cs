@@ -42,12 +42,7 @@ namespace KDZ_Audio_notification
 
         private void Play_in_random_order_Unchecked(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void Button_stop_Click(object sender, RoutedEventArgs e)
-        {
-
+            
         }
 
         private void Button_play_Click(object sender, RoutedEventArgs e)
@@ -98,5 +93,50 @@ namespace KDZ_Audio_notification
         {
 
         }
+
+        private void Music_list_dropped_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Music_list_dropped.Visibility = Visibility.Collapsed;
+            Music_list_up.Visibility = Visibility.Visible;
+            List_of_music.Visibility = Visibility.Visible;  
+        }
+
+        private void Music_list_up_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Music_list_up.Visibility=Visibility.Collapsed;
+            Music_list_dropped.Visibility=Visibility.Visible;
+            List_of_music.Visibility = Visibility.Collapsed;
+
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void Play_click_button_down_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Play_click_button_down.Visibility=Visibility.Collapsed;
+            Pause_click_button_down.Visibility = Visibility.Visible;
+        }
+
+        private void Pause_click_button_down_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Pause_click_button_down.Visibility =Visibility.Collapsed;
+            Play_click_button_down.Visibility = Visibility.Visible;
+        }
+
+        private void Musical_List__SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Notifications_List_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+    } 
     }
-}
+
+
+
