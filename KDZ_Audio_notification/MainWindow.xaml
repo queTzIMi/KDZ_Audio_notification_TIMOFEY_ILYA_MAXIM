@@ -32,14 +32,14 @@
                 <!--Margin - отступ, Height - высота BorderThickness - ширина рамки кнопок-->
             </Button>
 
-            
 
-            <Button Click="Button_play_Click"  Name ="Button_play" BorderThickness="0" Background="Transparent">
-                <Image Name="Play_click_button_down" MouseLeftButtonDown="Play_click_button_down_MouseLeftButtonDown"  Margin="10,5" Height = "45" Source="/Images/play.png" />
+
+            <Button Click="Button_play_Click"   Name ="Button_play" BorderThickness="0" Background="Transparent">
+                <Image  Margin="10,5" Height = "45" Source="/Images/play.png" />
             </Button>
 
-            <Button Click="Button_pause_Click"   Name ="Button_pause" BorderThickness="0"  Background="Transparent">
-                <Image Name="Pause_click_button_down" MouseLeftButtonDown="Pause_click_button_down_MouseLeftButtonDown"  Visibility="Collapsed" Margin="10,5" Height = "45" Source="/Images/pause.png" />
+            <Button Click="Button_pause_Click"   Name ="Button_pause"  Visibility="Collapsed" BorderThickness="0"  Background="Transparent">
+                <Image Margin="10,5" Height = "45" Source="/Images/pause.png" />
             </Button>
 
             <Button Click="Button_next_Click"  Name ="Button_next" BorderThickness="0" Background="Transparent">
@@ -63,25 +63,25 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <Label Content = "Список музыки"/>
             <Image Margin="0,0,180,0" Name="Music_list_dropped" MouseLeftButtonDown="Music_list_dropped_MouseLeftButtonDown" Width="20" Source="/Images/music_list_dropped.jpg"/>
             <Image Margin="0,0,180,0" Name="Music_list_up" MouseLeftButtonDown="Music_list_up_MouseLeftButtonDown" Width="15" Visibility="Collapsed" Source="/Images/music_list_up.jpg" />
- 
-            
+
+
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                
-                   <!--Два значка громкости : музыка включена и выкл. Поставил их на одно место свойством Visibility = "Collapsed" и Visibility = "Visible". При нажатии на значок один будет скрываться, а второй появляться--> 
+
+                <!--Два значка громкости : музыка включена и выкл. Поставил их на одно место свойством Visibility = "Collapsed" и Visibility = "Visible". При нажатии на значок один будет скрываться, а второй появляться-->
                 <!--При свойстве Hidden значки не будут резервировать одно место, следовательно они не будут наезжать друг на друга, а Collapsed позволяется на одном месте расположить два значка одновременно (один виден, другой - не виден)-->
                 <Image Name ="Music_on" MouseLeftButtonDown="Music_on_MouseLeftButtonDown"  Width="25" Visibility="Collapsed" Source="/Images/music_unmute.png"/>
                 <Image Name ="Music_off" MouseLeftButtonDown="Music_off_MouseLeftButtonDown" Width="23" Source="/Images/music_mute.jpg"/>
-               
+
                 <!--Контроллер громкости музыки (ползунок) Minimum - минимальное значение громкости, Maximum максимальное значение громкости, SmallChange - шаг изменения громкости-->
-                 <!--IsMoveToPointEnabled = "True" перемещает громкость в любое значение одним кликом по прогрессбару-->
+                <!--IsMoveToPointEnabled = "True" перемещает громкость в любое значение одним кликом по прогрессбару-->
                 <Slider IsMoveToPointEnabled="True" Margin= "5,5,0,0"  Name ="Volume_controller_music" Minimum="0" Maximum="100" SmallChange="1" Width="200" ValueChanged="Volume_controller_music_ValueChanged"/>
 
                 <Label Name="GNWOERK"  Content="100"/>
-                
+
             </StackPanel>
             <Label Margin="5,0,0,0" Grid.Column="1" Content = "Список уведомлений"/>
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -95,21 +95,22 @@
                 <Slider IsMoveToPointEnabled="True" Margin= "5,5,0,0"  Name ="Volume_controller_notifications" Minimum="0" Maximum="100" SmallChange="1" Width="200" ValueChanged="Volume_controller_notifications_ValueChanged"/>
 
                 <Label Name="KREOWNG"  Content="100"/>
-                 
+
             </StackPanel>
 
-            
-               
+
+
         </Grid>
-        
-        <Grid Grid.Row="4">                  <!--Список музыки - правый столбец, список оповещени - левый столбец-->
-            <Grid.ColumnDefinitions> 
+
+        <Grid Grid.Row="4">
+            <!--Список музыки - правый столбец, список оповещени - левый столбец-->
+            <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <!--SelectionChanged="Musical_List__SelectionChanged" - при выборе нужного трека из списка он начинает проигрываться-->
-            <ListBox SelectionChanged="Musical_List__SelectionChanged" Grid.Row="4" Grid.Column="0" Name ="Musical_List_"/> 
+            <ListBox SelectionChanged="Musical_List__SelectionChanged" Grid.Row="4" Grid.Column="0" Name ="Musical_List_"/>
             <ListBox SelectionChanged="Notifications_List_SelectionChanged" Grid.Row="4" Grid.Column="1" Name ="Notifications_List"/>
         </Grid>
 
@@ -122,36 +123,43 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>  <!--ColumnDefinition Width="150" - фиксированная ширина столбца в пикселях-->
+                <ColumnDefinition Width="150"/>
+                <!--ColumnDefinition Width="150" - фиксированная ширина столбца в пикселях-->
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <Label HorizontalAlignment="Right" Content="Обед:"/>
+
             <StackPanel Orientation="Horizontal" Grid.Column="1">
                 <TextBox TextAlignment="Center" Margin="1" Name="Lunch_starting" TextChanged="TextBox_TextChanged" Width="40" MaxLines="1" MaxLength="5" Text="12:00"/>
                 <Label Content="-"/>
                 <TextBox TextAlignment="Center" Margin="1" Name="Lunch_finishing" TextChanged="Lunch_finishing_TextChanged"  Width="40" MaxLines="1" MaxLength="5" Text="12:10"/>
             </StackPanel>
+
             <Label HorizontalAlignment="Right" Grid.Row="1" Content="Ужин:"/>
+
             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
                 <TextBox TextAlignment="Center" Margin="1" Name ="Dinner_Starting"  TextChanged="Dinner_Starting_TextChanged" Width="40" MaxLines="1"  MaxLength="5" Text="19:00"/>
                 <Label Content="-"/>
                 <TextBox TextAlignment="Center" Margin="1" Name="Dinner_finishing" TextChanged="Dinner_finishing_TextChanged" Width="40" MaxLines="1" MaxLength="5" Text="20:15"/>
             </StackPanel>
+
             <Label HorizontalAlignment="Right" Grid.Row="2" Content="Папка для музыки"/>
             <TextBox Grid.Column="1" Grid.Row ="2"  Margin="1" MaxLines="1" TextChanged="Way_to_folder_TextChanged" Name="Way_to_music_folder"/>
+
             <Button HorizontalAlignment="Right" Margin="1" Grid.Row="2" Grid.Column="1" Click="Button_Click_2">
                 <Image Source="/Images/folder.png" />
             </Button>
+
             <Label HorizontalAlignment="Right" Grid.Row="3" Content="Папка для оповещений"/>
             <TextBox Grid.Column="1" Grid.Row="4" Margin="1" MaxLines="1" TextChanged="TextBox_TextChanged_1" Name ="Way_to_notifications_folder"/>
+
             <Button Margin="1" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="4" Click="Button_Click_3">
-                   <Image Source="/Images/folder.png" />
- 
-                </Button>
-              
+                <Image Source="/Images/folder.png" />
+            </Button>
+
         </Grid>
     </Grid>
-    
-    
+
+
 </Window>

@@ -42,17 +42,19 @@ namespace KDZ_Audio_notification
 
         private void Play_in_random_order_Unchecked(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void Button_play_Click(object sender, RoutedEventArgs e)
         {
-
+            Button_play.Visibility = Visibility.Collapsed;
+            Button_pause.Visibility = Visibility.Visible;
         }
 
         private void Button_pause_Click(object sender, RoutedEventArgs e)
         {
-
+            Button_pause.Visibility = Visibility.Collapsed;
+            Button_play.Visibility = Visibility.Visible;
         }
 
         private void Button_next_Click(object sender, RoutedEventArgs e)
@@ -74,7 +76,7 @@ namespace KDZ_Audio_notification
         private void Music_off_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Music_off.Visibility = Visibility.Collapsed;
-            Music_on.Visibility=Visibility.Visible;
+            Music_on.Visibility = Visibility.Visible;
         }
 
         private void Notifications_on_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -84,8 +86,8 @@ namespace KDZ_Audio_notification
         }
 
         private void Notifications_off_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        { Notifications_off.Visibility = Visibility.Collapsed;
-           
+        {
+            Notifications_off.Visibility = Visibility.Collapsed;
             Notifications_on.Visibility = Visibility.Visible;
         }
 
@@ -97,30 +99,13 @@ namespace KDZ_Audio_notification
         private void Music_list_dropped_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Music_list_dropped.Visibility = Visibility.Collapsed;
-            Music_list_up.Visibility = Visibility.Visible;  
+            Music_list_up.Visibility = Visibility.Visible;
         }
 
         private void Music_list_up_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Music_list_up.Visibility=Visibility.Collapsed;
-            Music_list_dropped.Visibility=Visibility.Visible;
-        }
-
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void Play_click_button_down_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Play_click_button_down.Visibility=Visibility.Collapsed;
-            Pause_click_button_down.Visibility = Visibility.Visible;
-        }
-
-        private void Pause_click_button_down_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Pause_click_button_down.Visibility =Visibility.Collapsed;
-            Play_click_button_down.Visibility = Visibility.Visible;
+            Music_list_up.Visibility = Visibility.Collapsed;
+            Music_list_dropped.Visibility = Visibility.Visible;
         }
 
         private void Musical_List__SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -187,8 +172,8 @@ namespace KDZ_Audio_notification
         {
 
         }
-    } 
     }
+}
 
 
 
