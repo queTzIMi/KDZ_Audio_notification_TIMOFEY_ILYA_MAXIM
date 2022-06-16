@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.IO;
 namespace KDZ_Audio_notification
 {
     /// <summary>
@@ -110,6 +110,13 @@ namespace KDZ_Audio_notification
 
         private void Musical_List__SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (Way_to_music_folder.Text.EndsWith(@"\") == false)
+            {
+                Way_to_music_folder.Text += @"\";
+            }
+
+            Music_controller.Source = new Uri(Way_to_music_folder.Text + Musical_List_.SelectedItem);
+            Music_controller.Play();
 
         }
 
@@ -140,7 +147,22 @@ namespace KDZ_Audio_notification
 
         private void Way_to_folder_TextChanged(object sender, TextChangedEventArgs e)
         {
+            Folder_color_check();
+            string way_to_catalogue = Way_to_music_folder.Text;
+            if (Directory.Exists(way_to_catalogue))
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(way_to_catalogue);
+                FileInfo[] Files = directoryInfo.GetFiles();
+                Musical_List_.Items.Clear();
+                foreach (FileInfo file in Files)
+                {
+                    if (file.Name.EndsWith(".mp3"))
+                    {
 
+                        Musical_List_.Items.Add(file.Name);
+                    }
+                }
+            }
         }
 
         private void Button_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -155,7 +177,47 @@ namespace KDZ_Audio_notification
 
         private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
         {
+            string way_to_notifications = Way_to_notifications_folder.Text;
+            Folder_color_check();
+            if (Directory.Exists(way_to_notifications))
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(way_to_notifications);
+                FileInfo[] Files = directoryInfo.GetFiles();
+                Notifications_List.Items.Clear();
+                foreach (FileInfo file in Files)
+                {
+                    if (file.Name.EndsWith(".mp3"))
+                    {
 
+                        Notifications_List.Items.Add(file.Name);
+                    }
+                }
+            }
+        }
+
+        private void Folder_color_check()
+        {
+            if (Directory.Exists(Way_to_notifications_folder.Text))
+            {
+                Way_to_notifications_folder.Background = Brushes.LightGreen;
+            }
+            else
+            {
+                Way_to_notifications_folder.Background = Brushes.LightCoral;
+            }
+            if (Directory.Exists(Way_to_music_folder.Text))
+            {
+                Way_to_music_folder.Background = Brushes.LightGreen;
+            }
+            else
+            {
+                Way_to_music_folder.Background = Brushes.LightCoral;
+            }
+            if (Way_to_music_folder.Text.ToUpper() == Way_to_notifications_folder.Text.ToUpper())
+            {
+                Way_to_notifications_folder.Background = Brushes.Yellow;
+                Way_to_music_folder.Background = Brushes.Yellow;
+            }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -165,12 +227,22 @@ namespace KDZ_Audio_notification
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                dialog.SelectedPath = Way_to_music_folder.Text;
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    Way_to_music_folder.Text = dialog.SelectedPath;
+            }
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                dialog.SelectedPath = Way_to_notifications_folder.Text;
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    Way_to_notifications_folder.Text = dialog.SelectedPath;
+            }
         }
     }
 }
