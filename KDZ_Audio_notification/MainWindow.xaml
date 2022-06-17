@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ShadowProjectKDZ"
-        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="ShadowProjectKDZ.MainWindow"
+        xmlns:local="clr-namespace:KDZ_Audio_notification"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="KDZ_Audio_notification.MainWindow"
         mc:Ignorable="d"
          Title="NOtificatiON SYS" Height="450" Width="800"
         MinHeight="450"
@@ -64,9 +64,6 @@
             </Grid.ColumnDefinitions>
 
             <Label Content = "Список музыки"/>
-            <Image Margin="0,0,180,0" x:Name="Music_list_dropped" MouseLeftButtonDown="Music_list_dropped_MouseLeftButtonDown" Width="20" Source="/Images/music_list_dropped.jpg"/>
-            <Image Margin="0,0,180,0" x:Name="Music_list_up" MouseLeftButtonDown="Music_list_up_MouseLeftButtonDown" Width="15" Visibility="Collapsed" Source="/Images/music_list_up.jpg" />
-
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
 
@@ -79,7 +76,7 @@
                 <!--IsMoveToPointEnabled = "True" перемещает громкость в любое значение одним кликом по прогрессбару-->
                 <Slider IsMoveToPointEnabled="True" Margin= "5,5,0,0"  x:Name ="Volume_controller_music" Minimum="0" Maximum="100" SmallChange="1" Width="200" ValueChanged="Volume_controller_music_ValueChanged"/>
 
-                <Label x:Name="GNWOERK"  Content="100"/>
+                <Label x:Name="GNWOERK" Width="30"  Content="100"/>
 
             </StackPanel>
             <Label Margin="5,0,0,0" Grid.Column="1" Content = "Список уведомлений"/>
@@ -93,7 +90,7 @@
                 <!--Контроллер громкости музыки (ползунок) Minimum - минимальное значение громкости, Maximum максимальное значение громкости, SmallChange - шаг изменения громкости-->
                 <Slider IsMoveToPointEnabled="True" Margin= "5,5,0,0"  x:Name ="Volume_controller_notifications" Minimum="0" Maximum="100" SmallChange="1" Width="200" ValueChanged="Volume_controller_notifications_ValueChanged"/>
 
-                <Label x:Name="KREOWNG"  Content="100"/>
+                <Label x:Name="KREOWNG" Width="30" Content="100"/>
 
             </StackPanel>
 

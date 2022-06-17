@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
-namespace ShadowProjectKDZ
+namespace KDZ_Audio_notification
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
@@ -31,8 +31,10 @@ namespace ShadowProjectKDZ
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Way_to_music_folder.Text = (@"C:\Users\RIP\Source\Repos\KDZ_Audio_notification_TIMOFEY_ILYA_MAXIM\KDZ_Audio_notification\mp3\");
-            Way_to_notifications_folder.Text = (@"C:\Users\RIP\Source\Repos\KDZ_Audio_notification_TIMOFEY_ILYA_MAXIM\KDZ_Audio_notification\notifications\");
+            DirectoryInfo music_directory = new DirectoryInfo("mp3");
+            DirectoryInfo notifications_directory = new DirectoryInfo("notifications");
+            Way_to_music_folder.Text = music_directory.FullName;
+            Way_to_notifications_folder.Text = notifications_directory.FullName;
         }
 
         private void Button_prev_Click(object sender, RoutedEventArgs e)
@@ -140,18 +142,6 @@ namespace ShadowProjectKDZ
         private void Volume_controller_notifications_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
 
-        }
-
-        private void Music_list_dropped_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Music_list_dropped.Visibility = Visibility.Collapsed;
-            Music_list_up.Visibility = Visibility.Visible;
-        }
-
-        private void Music_list_up_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Music_list_up.Visibility = Visibility.Collapsed;
-            Music_list_dropped.Visibility = Visibility.Visible;
         }
 
         private void Musical_List__SelectionChanged(object sender, SelectionChangedEventArgs e)
