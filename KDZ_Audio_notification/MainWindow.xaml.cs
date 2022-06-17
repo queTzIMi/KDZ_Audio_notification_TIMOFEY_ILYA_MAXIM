@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,14 +13,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.IO;
-namespace KDZ_Audio_notification
+
+
+namespace ShadowProjectKDZ
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
+    /// 
     public partial class MainWindow : Window
     {
+        bool Is_Music = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -27,38 +31,80 @@ namespace KDZ_Audio_notification
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            Way_to_music_folder.Text = (@"C:\Users\RIP\Source\Repos\KDZ_Audio_notification_TIMOFEY_ILYA_MAXIM\KDZ_Audio_notification\mp3\");
+            Way_to_notifications_folder.Text = (@"C:\Users\RIP\Source\Repos\KDZ_Audio_notification_TIMOFEY_ILYA_MAXIM\KDZ_Audio_notification\notifications\");
         }
 
         private void Button_prev_Click(object sender, RoutedEventArgs e)
         {
+            if (Musical_List_.SelectedIndex > 0)
+            {
+                Musical_List_.SelectedIndex = Musical_List_.SelectedIndex - 1;
+            }
 
         }
 
         private void Play_in_random_order_Checked(object sender, RoutedEventArgs e)
         {
-
+            Button_prev.Visibility = Visibility.Hidden;
         }
 
         private void Play_in_random_order_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            Button_prev.Visibility = Visibility.Visible;
         }
 
         private void Button_play_Click(object sender, RoutedEventArgs e)
         {
-            Button_play.Visibility = Visibility.Collapsed;
-            Button_pause.Visibility = Visibility.Visible;
+
+            if ((Musical_List_.SelectedIndex == -1) && (Musical_List_.Items.Count > 0))
+            {
+                Button_next_Click(null, null);
+            }
+            else
+            {
+                Button_play.Visibility = Visibility.Collapsed;
+                Button_pause.Visibility = Visibility.Visible;
+                Music_controller.Play();
+            }
+
+
         }
 
         private void Button_pause_Click(object sender, RoutedEventArgs e)
         {
             Button_pause.Visibility = Visibility.Collapsed;
             Button_play.Visibility = Visibility.Visible;
+            Music_controller.Pause();
         }
 
         private void Button_next_Click(object sender, RoutedEventArgs e)
         {
+            if ((Play_notifications.IsChecked == true) && (Is_Music == true) && (Notifications_List.Items.Count > 0))
+            {
+                Notifications_List.SelectedIndex = (Notifications_List.SelectedIndex + 1) % Notifications_List.Items.Count;
+                Is_Music = false;
+
+            }
+            else
+            {
+                Is_Music = true;
+
+
+                if (Play_in_random_order.IsChecked == true)
+                {
+                    Random random = new Random();
+                    Musical_List_.SelectedIndex = random.Next(Musical_List_.Items.Count);
+
+                }
+                else
+                {
+
+                    Musical_List_.SelectedIndex = (Musical_List_.SelectedIndex + 1) % Musical_List_.Items.Count;
+
+                }
+            }
+
 
         }
 
@@ -110,19 +156,15 @@ namespace KDZ_Audio_notification
 
         private void Musical_List__SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Way_to_music_folder.Text.EndsWith(@"\") == false)
-            {
-                Way_to_music_folder.Text += @"\";
-            }
-
             Music_controller.Source = new Uri(Way_to_music_folder.Text + Musical_List_.SelectedItem);
-            Music_controller.Play();
+            Button_play_Click(null, null);
 
         }
 
         private void Notifications_List_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            Music_controller.Source = new Uri(Way_to_notifications_folder.Text + Notifications_List.SelectedItem);
+            Button_play_Click(null, null);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -151,6 +193,10 @@ namespace KDZ_Audio_notification
             string way_to_catalogue = Way_to_music_folder.Text;
             if (Directory.Exists(way_to_catalogue))
             {
+                if (Way_to_music_folder.Text.EndsWith(@"\") == false)
+                {
+                    Way_to_music_folder.Text += @"\";
+                }
                 DirectoryInfo directoryInfo = new DirectoryInfo(way_to_catalogue);
                 FileInfo[] Files = directoryInfo.GetFiles();
                 Musical_List_.Items.Clear();
@@ -181,6 +227,11 @@ namespace KDZ_Audio_notification
             Folder_color_check();
             if (Directory.Exists(way_to_notifications))
             {
+                if (Way_to_notifications_folder.Text.EndsWith(@"\") == false)
+                {
+                    Way_to_notifications_folder.Text += @"\";
+                }
+
                 DirectoryInfo directoryInfo = new DirectoryInfo(way_to_notifications);
                 FileInfo[] Files = directoryInfo.GetFiles();
                 Notifications_List.Items.Clear();
@@ -194,7 +245,6 @@ namespace KDZ_Audio_notification
                 }
             }
         }
-
         private void Folder_color_check()
         {
             if (Directory.Exists(Way_to_notifications_folder.Text))
@@ -219,7 +269,6 @@ namespace KDZ_Audio_notification
                 Way_to_music_folder.Background = Brushes.Yellow;
             }
         }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 
@@ -244,8 +293,11 @@ namespace KDZ_Audio_notification
                     Way_to_notifications_folder.Text = dialog.SelectedPath;
             }
         }
+
+        private void Music_controller_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            Button_next_Click(null, null);
+        }
     }
 }
-
-
 

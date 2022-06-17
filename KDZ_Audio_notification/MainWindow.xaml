@@ -1,11 +1,12 @@
-﻿<Window x:Class="KDZ_Audio_notification.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KDZ_Audio_notification"
+        xmlns:local="clr-namespace:ShadowProjectKDZ"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="ShadowProjectKDZ.MainWindow"
         mc:Ignorable="d"
-        Title="NOtificatiON SYS" Height="450" Width="800"
+         Title="NOtificatiON SYS" Height="450" Width="800"
         MinHeight="450"
         MinWidth="600"
         Loaded="Window_Loaded">
@@ -20,29 +21,29 @@
             <RowDefinition Height="102"/>
         </Grid.RowDefinitions>
 
-        <MediaElement Name ="Music_controller" LoadedBehavior="Manual"/>
+        <MediaElement x:Name ="Music_controller" LoadedBehavior="Manual" MediaEnded="Music_controller_MediaEnded"/>
         <!--Медиаэлемент в нашей программе не существует на интерфейсе, вся его суть - издавать звук-->
         <!--LoadedBehavior="Manual" - опция, предоставляющая контроллировать Медиафайл через код-->
 
         <StackPanel Grid.Row="0" HorizontalAlignment="Center" Orientation ="Horizontal">
             <!--Grid.Row =" " Присваивает StackPanel к нужной строчке-->
 
-            <Button  Click="Button_prev_Click"  Name ="Button_prev" BorderThickness="0" Background="Transparent">
+            <Button  Click="Button_prev_Click"  x:Name ="Button_prev" BorderThickness="0" Background="Transparent">
                 <Image Margin="10,5" Height = "35" Source="/Images/prev.png" />
                 <!--Margin - отступ, Height - высота BorderThickness - ширина рамки кнопок-->
             </Button>
 
 
 
-            <Button Click="Button_play_Click"   Name ="Button_play" BorderThickness="0" Background="Transparent">
+            <Button Click="Button_play_Click"   x:Name ="Button_play" BorderThickness="0" Background="Transparent">
                 <Image  Margin="10,5" Height = "45" Source="/Images/play.png" />
             </Button>
 
-            <Button Click="Button_pause_Click"   Name ="Button_pause"  Visibility="Collapsed" BorderThickness="0"  Background="Transparent">
+            <Button Click="Button_pause_Click"   x:Name ="Button_pause"  Visibility="Collapsed" BorderThickness="0"  Background="Transparent">
                 <Image Margin="10,5" Height = "45" Source="/Images/pause.png" />
             </Button>
 
-            <Button Click="Button_next_Click"  Name ="Button_next" BorderThickness="0" Background="Transparent">
+            <Button Click="Button_next_Click"  x:Name ="Button_next" BorderThickness="0" Background="Transparent">
                 <Image Margin="10,5" Height = "35" Source="/Images/next.png" />
                 <!--Margin - отступ, Height - высота-->
             </Button>
@@ -50,14 +51,12 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
-            <CheckBox Name="Play_notifications" Margin="0,3,7,0" Content="Проигрывать оповещения"></CheckBox>
-            <CheckBox Checked="Play_in_random_order_Checked" Unchecked="Play_in_random_order_Unchecked" Name ="Play_in_random_order"  Margin="0,3,7,0" Content="Проигрывать в случайном порядке"></CheckBox>
+            <CheckBox x:Name="Play_notifications" Margin="0,3,7,0" Content="Проигрывать оповещения"/>
+            <CheckBox Checked="Play_in_random_order_Checked" Unchecked="Play_in_random_order_Unchecked" x:Name ="Play_in_random_order"  Margin="0,3,7,0" Content="Проигрывать в случайном порядке"/>
         </StackPanel>
 
-        <ProgressBar Grid.Row="2" Name="Progress_bar"/>
-        <Label HorizontalAlignment="Center" Grid.Row="2" Name ="Music_timer" Content="00:00/00:00">
-
-        </Label>
+        <ProgressBar Grid.Row="2" x:Name="Progress_bar"/>
+        <Label HorizontalAlignment="Center" Grid.Row="2" x:Name ="Music_timer" Content="00:00/00:00"/>
         <Grid ShowGridLines="True" Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -65,22 +64,22 @@
             </Grid.ColumnDefinitions>
 
             <Label Content = "Список музыки"/>
-            <Image Margin="0,0,180,0" Name="Music_list_dropped" MouseLeftButtonDown="Music_list_dropped_MouseLeftButtonDown" Width="20" Source="/Images/music_list_dropped.jpg"/>
-            <Image Margin="0,0,180,0" Name="Music_list_up" MouseLeftButtonDown="Music_list_up_MouseLeftButtonDown" Width="15" Visibility="Collapsed" Source="/Images/music_list_up.jpg" />
+            <Image Margin="0,0,180,0" x:Name="Music_list_dropped" MouseLeftButtonDown="Music_list_dropped_MouseLeftButtonDown" Width="20" Source="/Images/music_list_dropped.jpg"/>
+            <Image Margin="0,0,180,0" x:Name="Music_list_up" MouseLeftButtonDown="Music_list_up_MouseLeftButtonDown" Width="15" Visibility="Collapsed" Source="/Images/music_list_up.jpg" />
 
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
 
                 <!--Два значка громкости : музыка включена и выкл. Поставил их на одно место свойством Visibility = "Collapsed" и Visibility = "Visible". При нажатии на значок один будет скрываться, а второй появляться-->
                 <!--При свойстве Hidden значки не будут резервировать одно место, следовательно они не будут наезжать друг на друга, а Collapsed позволяется на одном месте расположить два значка одновременно (один виден, другой - не виден)-->
-                <Image Name ="Music_on" MouseLeftButtonDown="Music_on_MouseLeftButtonDown"  Width="25" Visibility="Collapsed" Source="/Images/music_unmute.png"/>
-                <Image Name ="Music_off" MouseLeftButtonDown="Music_off_MouseLeftButtonDown" Width="23" Source="/Images/music_mute.jpg"/>
+                <Image x:Name ="Music_on" MouseLeftButtonDown="Music_on_MouseLeftButtonDown"  Width="25" Visibility="Collapsed" Source="/Images/music_unmute.png"/>
+                <Image x:Name ="Music_off" MouseLeftButtonDown="Music_off_MouseLeftButtonDown" Width="23" Source="/Images/music_mute.jpg"/>
 
                 <!--Контроллер громкости музыки (ползунок) Minimum - минимальное значение громкости, Maximum максимальное значение громкости, SmallChange - шаг изменения громкости-->
                 <!--IsMoveToPointEnabled = "True" перемещает громкость в любое значение одним кликом по прогрессбару-->
-                <Slider IsMoveToPointEnabled="True" Margin= "5,5,0,0"  Name ="Volume_controller_music" Minimum="0" Maximum="100" SmallChange="1" Width="200" ValueChanged="Volume_controller_music_ValueChanged"/>
+                <Slider IsMoveToPointEnabled="True" Margin= "5,5,0,0"  x:Name ="Volume_controller_music" Minimum="0" Maximum="100" SmallChange="1" Width="200" ValueChanged="Volume_controller_music_ValueChanged"/>
 
-                <Label Name="GNWOERK"  Content="100"/>
+                <Label x:Name="GNWOERK"  Content="100"/>
 
             </StackPanel>
             <Label Margin="5,0,0,0" Grid.Column="1" Content = "Список уведомлений"/>
@@ -88,13 +87,13 @@
 
                 <!--Два значка громкости : музыка включена и выкл. Поставил их на одно место свойством Visibility = "Collapsed" и Visibility = "Visible". При нажатии на значок один будет скрываться, а второй появляться-->
                 <!--При свойстве Hidden значки не будут резервировать одно место, следовательно они не будут наезжать друг на друга, а Collapsed позволяется на одном месте расположить два значка одновременно (один виден, другой - не виден)-->
-                <Image Name ="Notifications_on" MouseLeftButtonDown="Notifications_on_MouseLeftButtonDown"  Width="25" Visibility="Collapsed" Source="/Images/music_unmute.png"/>
-                <Image Name ="Notifications_off" MouseLeftButtonDown="Notifications_off_MouseLeftButtonDown" Width="23" Source="/Images/music_mute.jpg"/>
+                <Image x:Name ="Notifications_on" MouseLeftButtonDown="Notifications_on_MouseLeftButtonDown"  Width="25" Visibility="Collapsed" Source="/Images/music_unmute.png"/>
+                <Image x:Name ="Notifications_off" MouseLeftButtonDown="Notifications_off_MouseLeftButtonDown" Width="23" Source="/Images/music_mute.jpg"/>
 
                 <!--Контроллер громкости музыки (ползунок) Minimum - минимальное значение громкости, Maximum максимальное значение громкости, SmallChange - шаг изменения громкости-->
-                <Slider IsMoveToPointEnabled="True" Margin= "5,5,0,0"  Name ="Volume_controller_notifications" Minimum="0" Maximum="100" SmallChange="1" Width="200" ValueChanged="Volume_controller_notifications_ValueChanged"/>
+                <Slider IsMoveToPointEnabled="True" Margin= "5,5,0,0"  x:Name ="Volume_controller_notifications" Minimum="0" Maximum="100" SmallChange="1" Width="200" ValueChanged="Volume_controller_notifications_ValueChanged"/>
 
-                <Label Name="KREOWNG"  Content="100"/>
+                <Label x:Name="KREOWNG"  Content="100"/>
 
             </StackPanel>
 
@@ -110,8 +109,8 @@
             </Grid.ColumnDefinitions>
 
             <!--SelectionChanged="Musical_List__SelectionChanged" - при выборе нужного трека из списка он начинает проигрываться-->
-            <ListBox SelectionChanged="Musical_List__SelectionChanged" Grid.Row="4" Grid.Column="0" Name ="Musical_List_"/>
-            <ListBox SelectionChanged="Notifications_List_SelectionChanged" Grid.Row="4" Grid.Column="1" Name ="Notifications_List"/>
+            <ListBox SelectionChanged="Musical_List__SelectionChanged" Grid.Column="0" x:Name ="Musical_List_"/>
+            <ListBox SelectionChanged="Notifications_List_SelectionChanged" Grid.Column="1" x:Name ="Notifications_List" Grid.ColumnSpan="3"/>
         </Grid>
 
         <Grid Grid.Row="5">
@@ -131,31 +130,40 @@
             <Label HorizontalAlignment="Right" Content="Обед:"/>
 
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                <TextBox TextAlignment="Center" Margin="1" Name="Lunch_starting" TextChanged="TextBox_TextChanged" Width="40" MaxLines="1" MaxLength="5" Text="12:00"/>
+                <TextBox TextAlignment="Center" Margin="1" x:Name="Lunch_starting" TextChanged="TextBox_TextChanged" Width="40" MaxLines="1" MaxLength="5" Text="12:00"/>
                 <Label Content="-"/>
-                <TextBox TextAlignment="Center" Margin="1" Name="Lunch_finishing" TextChanged="Lunch_finishing_TextChanged"  Width="40" MaxLines="1" MaxLength="5" Text="12:10"/>
+                <TextBox TextAlignment="Center" Margin="1" x:Name="Lunch_finishing" TextChanged="Lunch_finishing_TextChanged"  Width="40" MaxLines="1" MaxLength="5" Text="12:10"/>
             </StackPanel>
 
             <Label HorizontalAlignment="Right" Grid.Row="1" Content="Ужин:"/>
 
             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
-                <TextBox TextAlignment="Center" Margin="1" Name ="Dinner_Starting"  TextChanged="Dinner_Starting_TextChanged" Width="40" MaxLines="1"  MaxLength="5" Text="19:00"/>
+                <TextBox TextAlignment="Center" Margin="1" x:Name ="Dinner_Starting"  TextChanged="Dinner_Starting_TextChanged" Width="40" MaxLines="1"  MaxLength="5" Text="19:00"/>
                 <Label Content="-"/>
-                <TextBox TextAlignment="Center" Margin="1" Name="Dinner_finishing" TextChanged="Dinner_finishing_TextChanged" Width="40" MaxLines="1" MaxLength="5" Text="20:15"/>
+                <TextBox TextAlignment="Center" Margin="1" x:Name="Dinner_finishing" TextChanged="Dinner_finishing_TextChanged" Width="40" MaxLines="1" MaxLength="5" Text="20:15"/>
             </StackPanel>
 
             <Label HorizontalAlignment="Right" Grid.Row="2" Content="Папка для музыки"/>
-            <TextBox Grid.Column="1" Grid.Row ="2"  Margin="1" MaxLines="1" TextChanged="Way_to_folder_TextChanged" Name="Way_to_music_folder"/>
+            <TextBox Grid.Column="1" Grid.Row ="2"  Margin="1" MaxLines="1" TextChanged="Way_to_folder_TextChanged" x:Name="Way_to_music_folder"/>
 
             <Button HorizontalAlignment="Right" Margin="1" Grid.Row="2" Grid.Column="1" Click="Button_Click_2">
                 <Image Source="/Images/folder.png" />
             </Button>
 
             <Label HorizontalAlignment="Right" Grid.Row="3" Content="Папка для оповещений"/>
-            <TextBox Grid.Column="1" Grid.Row="4" Margin="1" MaxLines="1" TextChanged="TextBox_TextChanged_1" Name ="Way_to_notifications_folder"/>
+            <TextBox Grid.Column="1" Grid.Row="4" Margin="1" MaxLines="1" TextChanged="TextBox_TextChanged_1" x:Name ="Way_to_notifications_folder"/>
 
             <Button Margin="1" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="4" Click="Button_Click_3">
-                <Image Source="/Images/folder.png" />
+                <Image Source="/Images/folder.png" RenderTransformOrigin="0.5,0.5" >
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-3.47"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
             </Button>
 
         </Grid>

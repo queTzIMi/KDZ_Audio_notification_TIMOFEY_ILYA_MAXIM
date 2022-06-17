@@ -121,5 +121,14 @@
   <ItemGroup>
     <Resource Include="Images\music_list_up.jpg" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="mp3\islam_itlyashev_-_ai-yai-yai_%28dikaya%29_muzati.net.mp3" />
+    <Content Include="mp3\ramil_-_ne_ischi_menya_muzati.net.mp3" />
+    <Content Include="mp3\the_limba_-_sekret_muzati.net.mp3" />
+    <Content Include="notifications\new_message_notice.mp3" />
+    <Content Include="notifications\new_message_tone.mp3" />
+    <Content Include="notifications\rj_3142622_04f1ce0737903e073fdc3c1cd5953a14_1618084674.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
