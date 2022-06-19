@@ -76,7 +76,7 @@
                 <!--IsMoveToPointEnabled = "True" перемещает громкость в любое значение одним кликом по прогрессбару-->
                 <Slider IsMoveToPointEnabled="True" Margin= "5,5,0,0"  x:Name ="Volume_controller_music" Minimum="0" Maximum="100" SmallChange="1" Width="200" ValueChanged="Volume_controller_music_ValueChanged"/>
 
-                <Label x:Name="GNWOERK" Width="30"  Content="100"/>
+                <Label x:Name="Volume_percent_label_music" Width="30"  Content="100"/>
 
             </StackPanel>
             <Label Margin="5,0,0,0" Grid.Column="1" Content = "Список уведомлений"/>
@@ -90,7 +90,7 @@
                 <!--Контроллер громкости музыки (ползунок) Minimum - минимальное значение громкости, Maximum максимальное значение громкости, SmallChange - шаг изменения громкости-->
                 <Slider IsMoveToPointEnabled="True" Margin= "5,5,0,0"  x:Name ="Volume_controller_notifications" Minimum="0" Maximum="100" SmallChange="1" Width="200" ValueChanged="Volume_controller_notifications_ValueChanged"/>
 
-                <Label x:Name="KREOWNG" Width="30" Content="100"/>
+                <Label x:Name="Volume_percent_label_notifications" Width="30" Content="100"/>
 
             </StackPanel>
 
@@ -101,13 +101,17 @@
         <Grid Grid.Row="4">
             <!--Список музыки - правый столбец, список оповещени - левый столбец-->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="267*"/>
+                <ColumnDefinition Width="24*"/>
+                <ColumnDefinition Width="105*"/>
+                <ColumnDefinition Width="212*"/>
+                <ColumnDefinition Width="64*"/>
+                <ColumnDefinition Width="120*"/>
             </Grid.ColumnDefinitions>
 
             <!--SelectionChanged="Musical_List__SelectionChanged" - при выборе нужного трека из списка он начинает проигрываться-->
-            <ListBox SelectionChanged="Musical_List__SelectionChanged" Grid.Column="0" x:Name ="Musical_List_"/>
-            <ListBox SelectionChanged="Notifications_List_SelectionChanged" Grid.Column="1" x:Name ="Notifications_List" Grid.ColumnSpan="3"/>
+            <ListBox SelectionChanged="Musical_List__SelectionChanged" Grid.Column="0" x:Name ="Musical_List_" Grid.ColumnSpan="3"/>
+            <ListBox SelectionChanged="Notifications_List_SelectionChanged" Grid.Column="3" x:Name ="Notifications_List" Grid.ColumnSpan="3"/>
         </Grid>
 
         <Grid Grid.Row="5">

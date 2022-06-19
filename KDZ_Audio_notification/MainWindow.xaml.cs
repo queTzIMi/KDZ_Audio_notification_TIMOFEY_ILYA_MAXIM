@@ -84,15 +84,18 @@ namespace KDZ_Audio_notification
         {
             if ((Play_notifications.IsChecked == true) && (Is_Music == true) && (Notifications_List.Items.Count > 0))
             {
-                Notifications_List.SelectedIndex = (Notifications_List.SelectedIndex + 1) % Notifications_List.Items.Count;
                 Is_Music = false;
+                Notifications_List.SelectedIndex = (Notifications_List.SelectedIndex + 1) % Notifications_List.Items.Count;
 
             }
             else
             {
                 Is_Music = true;
 
-
+                if (Musical_List_.Items.Count == 0)
+                {
+                    return;
+                }
                 if (Play_in_random_order.IsChecked == true)
                 {
                     Random random = new Random();
@@ -112,6 +115,18 @@ namespace KDZ_Audio_notification
 
         private void Volume_controller_music_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (Volume_controller_music.Value > 0)
+            {
+                Music_off.Visibility = Visibility.Collapsed;
+                Music_on.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Music_on.Visibility = Visibility.Collapsed;
+                Music_off.Visibility = Visibility.Visible;
+            }
+            if (Is_Music == true) Music_controller.Volume = Volume_controller_music.Value / (double)100;
+            Volume_percent_label_music.Content = (int)Volume_controller_music.Value; // (int) отрезает дробную часть у лейбла с показателем уровня громкости в числах
 
         }
 
@@ -119,34 +134,57 @@ namespace KDZ_Audio_notification
         {
             Music_on.Visibility = Visibility.Collapsed;
             Music_off.Visibility = Visibility.Visible;
+            if (Is_Music) Music_controller.Volume = 0;
         }
 
         private void Music_off_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Music_off.Visibility = Visibility.Collapsed;
             Music_on.Visibility = Visibility.Visible;
+            if (Is_Music) Music_controller.Volume = Volume_controller_music.Value / (double)100;
         }
 
         private void Notifications_on_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Notifications_on.Visibility = Visibility.Collapsed;
             Notifications_off.Visibility = Visibility.Visible;
+            if (Is_Music == false) Music_controller.Volume = 0;
         }
 
         private void Notifications_off_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Notifications_off.Visibility = Visibility.Collapsed;
             Notifications_on.Visibility = Visibility.Visible;
+            if (Is_Music == false) Music_controller.Volume = Volume_controller_notifications.Value / (double)100;
         }
-
         private void Volume_controller_notifications_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-
+            if (Volume_controller_notifications.Value > 0)
+            {
+                Notifications_off.Visibility = Visibility.Collapsed;
+                Notifications_on.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Notifications_on.Visibility = Visibility.Collapsed;
+                Notifications_off.Visibility = Visibility.Visible;
+            }
+            if (Is_Music == false) Music_controller.Volume = Volume_controller_notifications.Value / (double)100;
+            Volume_percent_label_notifications.Content = (int)Volume_controller_notifications.Value;
         }
 
         private void Musical_List__SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Music_controller.Source = new Uri(Way_to_music_folder.Text + Musical_List_.SelectedItem);
+            if (Music_on.Visibility == Visibility.Visible)
+            {
+                Music_controller.Volume = Volume_controller_music.Value / 100;
+            }
+            else
+            {
+                Music_controller.Volume = 0;
+            }
+
             Button_play_Click(null, null);
 
         }
@@ -154,6 +192,14 @@ namespace KDZ_Audio_notification
         private void Notifications_List_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Music_controller.Source = new Uri(Way_to_notifications_folder.Text + Notifications_List.SelectedItem);
+            if (Notifications_on.Visibility == Visibility.Visible)
+            {
+                Music_controller.Volume = Volume_controller_notifications.Value / 100;
+            }
+            else
+            {
+                Music_controller.Volume = 0;
+            }
             Button_play_Click(null, null);
         }
 
