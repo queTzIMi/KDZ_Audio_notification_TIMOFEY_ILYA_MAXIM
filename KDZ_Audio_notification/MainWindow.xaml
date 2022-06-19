@@ -131,7 +131,7 @@
             <Label HorizontalAlignment="Right" Content="Обед:"/>
 
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                <TextBox TextAlignment="Center" Margin="1" x:Name="Lunch_starting" TextChanged="TextBox_TextChanged" Width="40" MaxLines="1" MaxLength="5" Text="12:00"/>
+                <TextBox TextAlignment="Center" Margin="1" x:Name="Lunch_starting" TextChanged="Lunch_starting_TextChanged" Width="40" MaxLines="1" MaxLength="5" Text="12:00" />
                 <Label Content="-"/>
                 <TextBox TextAlignment="Center" Margin="1" x:Name="Lunch_finishing" TextChanged="Lunch_finishing_TextChanged"  Width="40" MaxLines="1" MaxLength="5" Text="12:10"/>
             </StackPanel>

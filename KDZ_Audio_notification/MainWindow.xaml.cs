@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Windows.Threading;
 
 namespace KDZ_Audio_notification
 {
@@ -24,6 +24,17 @@ namespace KDZ_Audio_notification
     public partial class MainWindow : Window
     {
         bool Is_Music = false;
+        int lunch_hour_start;
+        int lunch_hour_end;
+        int lunch_minute_start;
+        int lunch_minute_end;
+        int dinner_minute_start;
+        int dinner_minute_end;
+        int dinner_hour_start;
+        int dinner_hour_end;
+
+        DispatcherTimer timer = new DispatcherTimer();
+        DispatcherTimer food_timer = new DispatcherTimer();
         public MainWindow()
         {
             InitializeComponent();
@@ -31,10 +42,56 @@ namespace KDZ_Audio_notification
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            food_timer.Interval = TimeSpan.FromMinutes(1);
+            food_timer.Tick += Food_timer_Tick;
+            timer.Interval = TimeSpan.FromMilliseconds(100);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+            food_timer.Start();
             DirectoryInfo music_directory = new DirectoryInfo("mp3");
             DirectoryInfo notifications_directory = new DirectoryInfo("notifications");
             Way_to_music_folder.Text = music_directory.FullName;
             Way_to_notifications_folder.Text = notifications_directory.FullName;
+        }
+
+        private void Food_timer_Tick(object sender, EventArgs e)
+        {
+            if (lunch_hour_start == DateTime.Now.Hour && lunch_minute_start == DateTime.Now.Minute)
+            {
+                Button_play_Click(null, null);
+            }
+            if (lunch_hour_end == DateTime.Now.Hour && lunch_minute_end == DateTime.Now.Minute)
+            {
+                Button_pause.Visibility = Visibility.Collapsed;
+                Button_play.Visibility = Visibility.Visible;
+                Music_controller.Stop();
+            }
+            if (dinner_hour_start == DateTime.Now.Hour && dinner_minute_start == DateTime.Now.Minute)
+            {
+                Button_play_Click(null, null);
+            }
+            if (dinner_hour_end == DateTime.Now.Hour && dinner_minute_end == DateTime.Now.Minute)
+            {
+                Button_pause.Visibility = Visibility.Collapsed;
+                Button_play.Visibility = Visibility.Visible;
+                Music_controller.Stop();
+            }
+
+
+
+
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (Music_controller.NaturalDuration.HasTimeSpan)
+            {
+                Progress_bar.Value = Music_controller.Position.TotalMilliseconds;
+                Progress_bar.Maximum = Music_controller.NaturalDuration.TimeSpan.TotalMilliseconds;
+                String current_time = (int)Music_controller.Position.TotalMinutes + ":" + ((int)Music_controller.Position.TotalSeconds % 60).ToString("00");
+                String overall_time = (int)Music_controller.NaturalDuration.TimeSpan.TotalMinutes + ":" + ((int)Music_controller.NaturalDuration.TimeSpan.TotalSeconds % 60).ToString("00");
+                Music_timer.Content = current_time + "/" + overall_time;
+            }
         }
 
         private void Button_prev_Click(object sender, RoutedEventArgs e)
@@ -202,25 +259,43 @@ namespace KDZ_Audio_notification
             }
             Button_play_Click(null, null);
         }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void String_To_Date(TextBox text_box, out int hour, out int minute)
         {
+            try
+            {
+                String[] mas = text_box.Text.Split(':');
+                hour = int.Parse(mas[0]);
+                minute = int.Parse(mas[1]);
+                text_box.Background = Brushes.White;
+            }
+            catch
+            {
+                text_box.Background = Brushes.LightCoral;
+                hour = 0;
+                minute = 0;
+            }
 
+
+
+        }
+        private void Lunch_starting_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            String_To_Date(Lunch_starting, out lunch_hour_start, out lunch_minute_start);
         }
 
         private void Lunch_finishing_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            String_To_Date(Lunch_finishing, out lunch_hour_end, out lunch_minute_end);
         }
 
         private void Dinner_Starting_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            String_To_Date(Dinner_Starting, out dinner_hour_start, out dinner_minute_start);
         }
 
         private void Dinner_finishing_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            String_To_Date(Dinner_finishing, out dinner_hour_end, out dinner_minute_end);
         }
 
         private void Way_to_folder_TextChanged(object sender, TextChangedEventArgs e)
