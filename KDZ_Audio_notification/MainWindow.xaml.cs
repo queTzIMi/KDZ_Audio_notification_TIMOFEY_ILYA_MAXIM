@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -42,16 +43,46 @@ namespace KDZ_Audio_notification
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //загрузка настроек из базы данных 
+            using (SqlConnection connection = new SqlConnection("Server=localhost;Database=PlayerMP3;Trusted_Connection=True;"))
+            {
+                connection.Open();
+                SqlCommand sqlCommand = new SqlCommand("select settingvalue from Proga where settingname = 'habitual notice'", connection);
+                var a = sqlCommand.ExecuteScalar();
+                Play_notifications.IsChecked = sqlCommand.ExecuteScalar()?.ToString() == "exist";
+                sqlCommand = new SqlCommand("select settingvalue from Proga where settingname = 'random music'", connection);
+                Play_in_random_order.IsChecked = sqlCommand.ExecuteScalar()?.ToString() == "exist";
+                sqlCommand = new SqlCommand("select settingvalue from Proga where settingname = 'exist music value'", connection);
+                Music_on.Visibility = sqlCommand.ExecuteScalar()?.ToString() == "exist" ? Visibility.Visible : Visibility.Collapsed; // если равно ставим визибл, не равно - collapsed
+                Music_off.Visibility = sqlCommand.ExecuteScalar()?.ToString() == "exist" ? Visibility.Collapsed : Visibility.Visible; // здесь должны быть картинка другая (т.е мы сделали зачеркнутую и не зачеркнутую
+                sqlCommand = new SqlCommand("select settingvalue from Proga where settingname = 'include notification'", connection);
+                Notifications_on.Visibility = sqlCommand.ExecuteScalar()?.ToString() == "exist" ? Visibility.Visible : Visibility.Collapsed;
+                Notifications_off.Visibility = sqlCommand.ExecuteScalar()?.ToString() == "exist" ? Visibility.Collapsed : Visibility.Visible;
+                sqlCommand = new SqlCommand("select settingvalue from Proga where settingname = 'left slider'", connection);
+                var b = sqlCommand.ExecuteScalar();
+                Volume_controller_music.Value = int.Parse(sqlCommand.ExecuteScalar()?.ToString());
+                sqlCommand = new SqlCommand("select settingvalue from Proga where settingname = 'right slider'", connection);
+                Volume_controller_notifications.Value = int.Parse(sqlCommand.ExecuteScalar()?.ToString());
+                sqlCommand = new SqlCommand("select settingvalue from Proga where settingname = 'lunch start time'", connection);
+                Lunch_starting.Text = sqlCommand.ExecuteScalar()?.ToString();
+                sqlCommand = new SqlCommand("select settingvalue from Proga where settingname = 'lunch end time'", connection);
+                Lunch_finishing.Text = sqlCommand.ExecuteScalar()?.ToString();
+                sqlCommand = new SqlCommand("select settingvalue from Proga where settingname = 'dinner start time'", connection);
+                Dinner_Starting.Text = sqlCommand.ExecuteScalar()?.ToString();
+                sqlCommand = new SqlCommand("select settingvalue from Proga where settingname = 'dinner end time'", connection);
+                Dinner_finishing.Text = sqlCommand.ExecuteScalar()?.ToString();
+                sqlCommand = new SqlCommand("select settingvalue from Proga where settingname = 'music folder name'", connection);
+                Way_to_music_folder.Text = sqlCommand.ExecuteScalar()?.ToString();
+                sqlCommand = new SqlCommand("select settingvalue from Proga where settingname = 'notification folder name'", connection);
+                Way_to_notifications_folder.Text = sqlCommand.ExecuteScalar()?.ToString();
+            }
             food_timer.Interval = TimeSpan.FromMinutes(1);
             food_timer.Tick += Food_timer_Tick;
             timer.Interval = TimeSpan.FromMilliseconds(100);
             timer.Tick += Timer_Tick;
             timer.Start();
             food_timer.Start();
-            DirectoryInfo music_directory = new DirectoryInfo("mp3");
-            DirectoryInfo notifications_directory = new DirectoryInfo("notifications");
-            Way_to_music_folder.Text = music_directory.FullName;
-            Way_to_notifications_folder.Text = notifications_directory.FullName;
+
         }
 
         private void Food_timer_Tick(object sender, EventArgs e)
@@ -408,6 +439,55 @@ namespace KDZ_Audio_notification
         private void Music_controller_MediaEnded(object sender, RoutedEventArgs e)
         {
             Button_next_Click(null, null);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //сохранение настроек обратно в базу данных. Window closing это событие при закрытии окна
+            using (SqlConnection connection = new SqlConnection("Server=localhost;Database=PlayerMP3;Trusted_Connection=True;"))
+            {
+                connection.Open();
+                string exist = Play_notifications.IsChecked == true ? "exist" : "not exist";
+                SqlCommand sqlCommand = new SqlCommand($"update Proga set settingvalue = '{exist}' where settingname = 'habitual notice'", connection);
+                sqlCommand.ExecuteNonQuery();
+                exist = Play_in_random_order.IsChecked == true ? "exist" : "not exist";
+                sqlCommand = new SqlCommand($"update Proga set settingvalue = '{exist}' where settingname = 'random music'", connection);
+                sqlCommand.ExecuteNonQuery();
+                exist = Music_on.Visibility == Visibility.Visible ? "exist" : "not exist";
+
+                sqlCommand = new SqlCommand($"update Proga set settingvalue = '{exist}' where settingname = 'exist music value'", connection);
+                sqlCommand.ExecuteNonQuery();
+
+                exist = Notifications_on.Visibility == Visibility.Visible ? "exist" : "not exist";
+
+                sqlCommand = new SqlCommand($"update Proga set settingvalue = '{exist}' where settingname = 'include notification'", connection);
+                sqlCommand.ExecuteNonQuery();
+
+                sqlCommand = new SqlCommand($"update Proga set settingvalue = '{(int)Volume_controller_music.Value}' where settingname  = 'left slider'", connection);
+                sqlCommand.ExecuteNonQuery();
+
+                sqlCommand = new SqlCommand($"update Proga set settingvalue = '{(int)Volume_controller_notifications.Value}' where settingname  = 'right slider'", connection);
+                sqlCommand.ExecuteNonQuery();
+
+                sqlCommand = new SqlCommand($"update Proga set settingvalue = '{Lunch_starting.Text}' where settingname  = 'lunch start time'", connection);
+                sqlCommand.ExecuteNonQuery();
+
+                sqlCommand = new SqlCommand($"update Proga set settingvalue = '{Lunch_finishing.Text}' where settingname  = 'lunch end time'", connection);
+                sqlCommand.ExecuteNonQuery();
+
+                sqlCommand = new SqlCommand($"update Proga set settingvalue = '{Dinner_Starting.Text}' where settingname  = 'dinner start time'", connection);
+                sqlCommand.ExecuteNonQuery();
+
+                sqlCommand = new SqlCommand($"update Proga set settingvalue = '{Dinner_finishing.Text}' where settingname  = 'dinner end time'", connection);
+                sqlCommand.ExecuteNonQuery();
+
+                sqlCommand = new SqlCommand($"update Proga set settingvalue = '{Way_to_music_folder.Text}' where settingname  = 'music folder name'", connection);
+                sqlCommand.ExecuteNonQuery();
+
+                sqlCommand = new SqlCommand($"update Proga set settingvalue = '{Way_to_notifications_folder.Text}' where settingname  = 'notification folder name'", connection);
+                sqlCommand.ExecuteNonQuery();
+
+            }
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿create  database PlayerMP3
+go
+use PlayerMP3
+create table Proga (settingname NVARCHAR (50) unique not null, settingvalue NVARCHAR (500) not null) -- создал таблицу (два столбца)
+insert into Proga (settingname , settingvalue) values ('habitual notice','exist')-- установил включенное проигрывание оповещений, галочка присутствует
+insert into Proga (settingname , settingvalue) values ('random music','exist')-- установил музыку в случайном порядке, галочка присутствует 
+insert into Proga (settingname , settingvalue) values ('exist music value','exist') -- громкость музыки, индикатор громкости не зачёркнут
+insert into Proga (settingname , settingvalue) values ('include notification','exist')-- присутствуют уведомления, их индикатор тоже не зачёркнут
+insert into Proga (settingname , settingvalue) values ('left slider','35') -- это делаю для левого ползунка, какое значение они будут приобретать
+insert into Proga (settingname , settingvalue) values ('right slider','75') -- это делаю для правого ползунка (уведомления), какое значение они будут приобретать
+insert into Proga (settingname , settingvalue) values ('lunch start time','12:00') -- это я установил время начала обеда
+insert into Proga (settingname , settingvalue) values ('lunch end time','12:30') -- это я установил время окончания обеда
+insert into Proga (settingname , settingvalue) values ('dinner start time','18:00') -- это я установил время начала ужина
+insert into Proga (settingname , settingvalue) values ('dinner end time','18:30') -- это я установил время окончания ужина
+insert into Proga (settingname , settingvalue) values ('music folder name', '') -- это я указал папку, где должны лежать файлы с музыкой
+insert into Proga (settingname , settingvalue) values ('notification folder name', '') -- это я указал папку, где должны лежать файлы с оповещениями
